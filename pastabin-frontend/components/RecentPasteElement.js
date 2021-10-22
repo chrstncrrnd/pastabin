@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, StyleSheet, Button, TouchableOpacity} from "react-native"
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 
 const RecentPaste = (props) => {
     return(
@@ -22,11 +22,16 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         flex: 1,
         flexDirection: "row",
+        width: 360
     },
     pasteId: {
         fontSize: 20,
         color: "white",
         paddingRight: 24
+    },
+    preview: {
+        fontSize: 10,
+        color: "lightgrey"
     }
 })
 
