@@ -32,12 +32,32 @@ async fn get_paste(id: &str) -> Option<File>{
     File::open(&file_path).await.ok()
 }
 
+//get recents for that part in the app
+//TODO: FIX THIS
+#[get("/recents")]
+async fn get_recents() -> String{
+    //not safe nor efficient
+    let mut result_string = String::new();
+    let paths = std::fs::read_dir("./pastes").unwrap();
+
+    for entry in paths{
+        let mut path = entry.unwrap().file_name().into_string().unwrap();
+        //remove .txt ending
+        path.truncate(11);
+        //adds the path and new line to then be made into an
+        //array in js
+        result_string = result_string + &*path + "\n";
+    }
+
+    result_string
+}
+
 
 #[rocket::main]
 async fn main() {
     rocket::build()
         .mount("/test", routes![ping])
-        .mount("/api", routes![paste, get_paste])
+        .mount("/api", routes![paste, get_paste, get_recents])
         .launch()
         .await;
 }

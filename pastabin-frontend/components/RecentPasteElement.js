@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 
-const RecentPaste = (props) => {
+export default function (props) {
     return(
         <View style={styles.container}>
             <TouchableOpacity>
@@ -10,8 +10,11 @@ const RecentPaste = (props) => {
 
             <Text style = {styles.preview}>{props.pastePreview}</Text>
         </View>
+
     )
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -35,5 +38,3 @@ const styles = StyleSheet.create({
     }
 })
 
-
-export default RecentPaste;

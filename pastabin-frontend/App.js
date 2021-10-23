@@ -1,7 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-import RecentPaste from './components/RecentPaste';
+import {StyleSheet, Text, View} from 'react-native';
+import RecentsGenerator from "./components/RecentsGenerator";
+
 
 export default function App() {
   return (
@@ -11,24 +11,17 @@ export default function App() {
       </Text>
       <Text style={styles.subtitle}>Recent pastes: </Text>
       <View style={styles.recentpastes}>
-        <RecentPaste pasteId={"0fdFjfds"} pastePreview={`         fjdklafjdkslajfd
-lskajfkldsjafklsdjafkljdsaklfjsdk
-        la`}/>
-        <RecentPaste pasteId={"0fdFjfds"} pastePreview={"fjdklafjdkslajfdlskajfkldsjafklsdjafkljdsaklfjsdkla"}/>
-        <RecentPaste pasteId={"0fdFjfds"} pastePreview={"fjdklafjdkslajfdlskajfkldsjafklsdjafkljdsaklfjsdkla"}/>
-        <RecentPaste pasteId={"0fdFjfds"} pastePreview={"fjdklafjdkslajfdlskajfkldsjafklsdjafkljdsaklfjsdkla"}/>
+        <RecentsGenerator />
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#292929',
   },
   title: {
-    position: "absolute",
     top: 80,
     left: 20,
     fontSize: 50,
@@ -37,15 +30,11 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 25,
     color: "#fff",
-    position: "absolute",
-    top: 180,
+    top: 120,
     left: 20
   },
   recentpastes: {
-    position: "absolute",
-    top: 220,
-    flex: 1,
-    flexDirection: "column"
-
+    top: 140,
+    marginBottom: 250
   }
 });
