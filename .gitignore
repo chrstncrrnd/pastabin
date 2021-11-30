@@ -1,4 +1,3 @@
-pb-backend/.idea
 pb-backend/Cargo.lock
 pb-backend/target
 
@@ -7,4 +6,4 @@ pastabin-frontend/.expo-shared
 pastabin-frontend/yarn.lock
 pastabin-frontend/node_modules
 pastabin-frontend/package.json
-pastabin-frontend/.idea
+.idea

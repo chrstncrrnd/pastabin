@@ -1,15 +1,20 @@
+#[macro_use] extern crate rocket;
+#[macro_use] extern crate serde;
+
+use rocket::Data;
+use rocket::data::ToByteUnit;
+use rocket::tokio::fs::File;
+
+use paste_id_gen::PasteId;
+
 mod paste_id_gen;
 
-#[macro_use] extern crate rocket;
-
-use rocket::tokio::fs::File;
-use rocket::Data;
-use paste_id_gen::PasteId;
-use rocket::data::ToByteUnit;
+#[derive(Serialize)]
+pub struct RecentsResult{recents: Vec<String>}
 
 #[get("/ping")]
 fn ping() -> String{
-    String::from("Pong!")
+    String::from("{\"data\": \"Pong!\"}")
 }
 
 #[post("/paste", data="<paste>")]
@@ -37,7 +42,7 @@ async fn get_paste(id: &str) -> Option<File>{
 #[get("/recents")]
 async fn get_recents() -> String{
     //not safe nor efficient
-    let mut result_string = String::new();
+    let mut results = RecentsResult{recents: Vec::new()};
     let paths = std::fs::read_dir("./pastes").unwrap();
 
     for entry in paths{
@@ -46,10 +51,11 @@ async fn get_recents() -> String{
         path.truncate(11);
         //adds the path and new line to then be made into an
         //array in js
-        result_string = result_string + &*path + "\n";
+        results.recents.push(path)
     }
 
-    result_string
+    serde_json::to_string(&results).unwrap()
+
 }
 
 
