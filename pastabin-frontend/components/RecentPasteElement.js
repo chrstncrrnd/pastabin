@@ -3,13 +3,18 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 
 export default function (props) {
     return(
-        <View style={styles.container}>
-            <TouchableOpacity>
-                <Text style={styles.pasteId}>{props.pasteId}</Text>
-            </TouchableOpacity>
+        <Text>
+            {props.pasteId}
+        </Text>
 
-            <Text style = {styles.preview}>{props.pastePreview}</Text>
-        </View>
+
+        // <View style={styles.container}>
+        //     <TouchableOpacity>
+        //         <Text style={styles.pasteId}>{props.pasteId}</Text>
+        //     </TouchableOpacity>
+        //
+        //     <Text style = {styles.preview}>{props.pastePreview}</Text>
+        // </View>
 
     )
 }
