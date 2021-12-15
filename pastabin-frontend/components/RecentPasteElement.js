@@ -1,20 +1,46 @@
-import React, {useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
+import React, {useEffect, useState} from "react";
+import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from "react-native"
+const RecentPasteElement = (props) => {
+    const [loading, setLoading] = useState(true);
+    const [preview, setPreview] = useState("");
+    const [open, setOpen] = useState(false)
 
-export default function (props) {
+    const loadPreview = async () =>{
+        try{
+            const url = "http://192.168.0.17:8000/api/get_paste/" + props.pasteId
+            const response = await fetch(url, {method: "GET"})
+            let text = await response.text()
+            setPreview(text)
+        }catch (error) {
+            console.log(error)
+        }finally {
+            setLoading(false)
+        }
+
+    }
+
+    const toggleOpen = () => {
+        setOpen(open => !open)
+    }
+
+    useEffect(
+        () => {
+            loadPreview()
+        }, []
+    )
+
     return(
-        <Text>
-            {props.pasteId}
-        </Text>
+        <View style={styles.container}>
+            <TouchableOpacity onPress={toggleOpen}>
+                <Text style={styles.pasteId}>{props.pasteId}</Text>
+            </TouchableOpacity>
 
-
-        // <View style={styles.container}>
-        //     <TouchableOpacity>
-        //         <Text style={styles.pasteId}>{props.pasteId}</Text>
-        //     </TouchableOpacity>
-        //
-        //     <Text style = {styles.preview}>{props.pastePreview}</Text>
-        // </View>
+            <View>
+                {
+                    loading ? <ActivityIndicator /> : <Text style={styles.preview}>{open ? preview : (preview.length > 200 ? preview.slice(0, 200) + "..." : preview)}</Text>
+                }
+            </View>
+        </View>
 
     )
 }
@@ -23,23 +49,23 @@ export default function (props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#5E5E5E",
-        left: 20,
-        padding: 20,
-        borderRadius: 30,
-        marginBottom: 10,
-        flex: 1,
-        flexDirection: "row",
-        width: 360
+        paddingLeft: 30,
+        paddingRight: 30,
+        padding: 5,
+        backgroundColor: "#3E4C5E",
+        borderRadius: 10,
+        margin: 5,
     },
     pasteId: {
         fontSize: 20,
         color: "white",
-        paddingRight: 24
+        
     },
     preview: {
         fontSize: 10,
-        color: "lightgrey"
+        color: "#858786"
     }
 })
+
+export default RecentPasteElement;
 

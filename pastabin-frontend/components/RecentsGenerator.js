@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, Text, View} from "react-native"
+import {ActivityIndicator, View} from "react-native"
 import RecentPasteElement from "./RecentPasteElement";
 
 const RecentsGenerator = (props) => {
@@ -8,11 +8,11 @@ const RecentsGenerator = (props) => {
 
     const getPaste = async () =>{
         try{
-            const response: String = await fetch("http://192.168.0.17:8000/api/recents")
+            const response = await fetch("http://192.168.0.17:8000/api/recents")
             const json = await response.json()
             let dataList = []
             json.recents.forEach(recent => {
-                dataList.push(recent + "\n")
+                dataList.push(recent)
             })
             setData(dataList)
         }catch (error){
@@ -27,18 +27,12 @@ const RecentsGenerator = (props) => {
     }, []);
     return (
         <View>
-            <Text>
-                Recents:
-            </Text>
-            <View>
-                {loading ? <ActivityIndicator/> :
-                    <View>
-                        {
-                            data.forEach(d => <RecentPasteElement pasteId={d}/> )
-                        }
-                    </View>
-                }
-            </View>
+            {
+                loading ? <ActivityIndicator /> :
+                data.map((data, key) => {
+                    return <RecentPasteElement pasteId={data} pastePreview={"hi"} key={key}/>
+                })
+            }
         </View>
     )
 }

@@ -3,7 +3,6 @@
 
 use rocket::Data;
 use rocket::data::ToByteUnit;
-use rocket::tokio::fs::File;
 
 use paste_id_gen::PasteId;
 
@@ -32,9 +31,10 @@ async fn paste(paste: Data<'_>) -> std::io::Result<String>{
 }
 
 #[get("/get_paste/<id>")]
-async fn get_paste(id: &str) -> Option<File>{
+async fn get_paste(id: &str) -> String{
     let file_path = format!("pastes/{}.txt", id);
-    File::open(&file_path).await.ok()
+    std::fs::read_to_string(file_path).unwrap()
+    
 }
 
 //get recents for that part in the app
