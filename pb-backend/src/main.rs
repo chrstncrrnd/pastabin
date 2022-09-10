@@ -34,7 +34,6 @@ async fn paste(paste: Data<'_>) -> std::io::Result<String>{
 async fn get_paste(id: &str) -> String{
     let file_path = format!("pastes/{}.txt", id);
     std::fs::read_to_string(file_path).unwrap()
-    
 }
 
 //get recents for that part in the app

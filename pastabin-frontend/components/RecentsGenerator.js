@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, View} from "react-native"
+import {ActivityIndicator, StyleSheet, ScrollView, View, Dimensions} from "react-native"
 import RecentPasteElement from "./RecentPasteElement";
 
 const RecentsGenerator = (props) => {
@@ -27,14 +27,19 @@ const RecentsGenerator = (props) => {
     }, []);
     return (
         <View>
+            <ScrollView>
             {
                 loading ? <ActivityIndicator /> :
                 data.map((data, key) => {
-                    return <RecentPasteElement pasteId={data} pastePreview={"hi"} key={key}/>
+                    return <RecentPasteElement pasteId={data} pastePreview={"default"} key={key}/>
                 })
             }
+            </ScrollView>
+
         </View>
     )
+
+
 }
 
 export default RecentsGenerator;

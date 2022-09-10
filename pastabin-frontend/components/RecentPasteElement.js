@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from "react-native"
+
+
 const RecentPasteElement = (props) => {
     const [loading, setLoading] = useState(true);
     const [preview, setPreview] = useState("");
@@ -37,7 +39,7 @@ const RecentPasteElement = (props) => {
 
             <View>
                 {
-                    loading ? <ActivityIndicator /> : <Text style={styles.preview}>{open ? preview : (preview.length > 200 ? preview.slice(0, 200) + "..." : preview)}</Text>
+                    loading ? <ActivityIndicator /> : <Text style={styles.preview}>{open ? preview : (preview.length > 203 ? preview.slice(0, 200) + "..." : preview)}</Text>
                 }
             </View>
         </View>
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         padding: 5,
-        backgroundColor: "#3E4C5E",
+        backgroundColor: "#3E485E",
         borderRadius: 10,
         margin: 5,
     },

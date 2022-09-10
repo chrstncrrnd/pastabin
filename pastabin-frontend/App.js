@@ -1,69 +1,62 @@
 import React from 'react';
-import {StyleSheet, Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text, SafeAreaView, Dimensions, View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import RecentsGenerator from "./components/RecentsGenerator";
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        Pasta Bin
-      </Text>
+    <SafeAreaView style={styles.container}>
 
+      <Text style={styles.title}>Pasta Bin</Text>
+    
       <Text style={styles.subtitle}>Recent pastes: </Text>
 
-      <TouchableOpacity>
-        <Text style={styles.refresh} onPress={console.log("hello")}>
-          Refresh
-        </Text>
-      </TouchableOpacity>
-
-      <View style={styles.recentpastes}>
-        <ScrollView>
-          <RecentsGenerator />
-        </ScrollView>
+      <View style={styles.recentscontainer}>
+        <RecentsGenerator />
       </View>
-    </View>
-  );
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
+        <View style={styles.newpastecontainer}>
+          <TextInput style={styles.pasteinput} placeholder='New paste'></TextInput>
+        </View>
+      </KeyboardAvoidingView>
+    
+    </SafeAreaView>
+    )
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#2C3D55',
+    backgroundColor: "#30405F",
+    flex: 1
   },
   title: {
-    top: 80,
-    left: 20,
-    fontSize: 50,
-    color: "white",
+    paddingTop: 30,
+    fontSize: 40,
+    color: "#fff",
+    left: Dimensions.get("window").width / 30,
     fontWeight: "bold"
   },
   subtitle: {
-    fontSize: 25,
-    color: "#fff",
-    top: 100,
-    left: 20
-  },
-  recentpastes: {
-    top: 120,
-    marginBottom: 200
-  },
-  plus: {
-    bottom: 100,
-    left: 100,
-    fontSize: 100,
-    backgroundColor: "white",
-    padding: 0
-  },
-  refresh: {
-    position: "absolute",
-    top: 75,
-    left: 320,
-    padding: "0%",
-    margin: "0%",
-    fontWeight: "300",
     fontSize: 20,
-    color: "white",
+    color: "#fff",
+    left: Dimensions.get("window").width / 30
+  },
+  recentscontainer: {
+    paddingTop: 10,
+    paddingBottom: 120
+  },
+  newpastecontainer: {
+    
+  },
+  pasteinput: {
+    borderColor: "grey",
+    backgroundColor: "white",
+    width: 300,
+    fontSize: 30,
+    height: 50,
+    borderRadius: 40,
+    paddingHorizontal: 20,
+    borderWidth: 3
   }
+
 });
 
